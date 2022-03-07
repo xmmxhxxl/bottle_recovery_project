@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="mainWindow_ico">
+    <file>question_icon.png</file>
+    <file>user_ico.png</file>
+    <file>kind_ico.png</file>
+    <file>back_icon_w.png</file>
+    <file>convert_icon.png</file>
+    <file>idea_icon.png</file>
+    <file>main_background_icon_2.png</file>
+    <file>mainWindow_ico.png</file>
+    <file>recycle_ico.png</file>
+    <file>title_recycle_icon.png</file>
+    <file>user_background_icon.png</file>
+    <file>user_background_icon_3.png</file>
+  </qresource>
+</RCC>
