@@ -36,35 +36,6 @@
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>90</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>幼圆</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color:rgb(125, 200, 203);
-border-radius: 3px;</string>
-       </property>
-       <property name="text">
-        <string>返回</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="3">
         <spacer name="horizontalSpacer_4">
@@ -138,7 +109,7 @@ border-radius:3px;</string>
              </property>
              <property name="maximumSize">
               <size>
-               <width>111</width>
+               <width>155</width>
                <height>41</height>
               </size>
              </property>
@@ -154,7 +125,7 @@ background-color:rgb(195, 227, 218);
 </string>
              </property>
              <property name="text">
-              <string>扫码登陆</string>
+              <string>微信扫码登陆</string>
              </property>
             </widget>
            </item>

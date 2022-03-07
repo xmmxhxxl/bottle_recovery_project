@@ -20,7 +20,7 @@
    <string>回收</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ico_src.qrc">
+   <iconset resource="../../../ui1.0.0/ico_src.qrc">
     <normaloff>:/mainWindow_ico/mainWindow_ico.png</normaloff>:/mainWindow_ico/mainWindow_ico.png</iconset>
   </property>
   <property name="styleSheet">
@@ -30,9 +30,12 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="back_main_but">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
            <horstretch>0</horstretch>
@@ -65,108 +68,160 @@ border-radius: 3px;</string>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Maximum</enum>
+         </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>40</width>
+           <width>410</width>
            <height>20</height>
           </size>
          </property>
         </spacer>
        </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
        <item>
-        <widget class="QLabel" name="videoLabel">
-         <property name="styleSheet">
-          <string notr="true">border-radius: 5px;
-
-</string>
+        <widget class="QLabel" name="kind_text_label">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>18</pointsize>
+          </font>
          </property>
          <property name="text">
-          <string/>
+          <string>种类</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8">
-         <property name="spacing">
-          <number>0</number>
+        <widget class="QLabel" name="price_text_label">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>18</pointsize>
+          </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>价格</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,14">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QLabel" name="kind_text_label">
-             <property name="font">
-              <font>
-               <family>幼圆</family>
-               <pointsize>18</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>种类</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="price_text_label">
-             <property name="font">
-              <font>
-               <family>幼圆</family>
-               <pointsize>18</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>价格</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QTableWidget" name="resultTableWidget">
+          <widget class="QLabel" name="cue_label">
            <property name="font">
             <font>
              <family>幼圆</family>
              <pointsize>14</pointsize>
             </font>
            </property>
+           <property name="text">
+            <string>请将瓶子放至识别区</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="videoLabel">
            <property name="styleSheet">
-            <string notr="true">background-color:rgb(195, 227, 218);
-border-radius:5px;
+            <string notr="true">border-radius: 5px;
+
 </string>
            </property>
-           <property name="autoScrollMargin">
-            <number>27</number>
+           <property name="text">
+            <string/>
            </property>
-           <property name="columnCount">
-            <number>0</number>
-           </property>
-           <attribute name="horizontalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="horizontalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderVisible">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderCascadingSectionResizes">
-            <bool>false</bool>
-           </attribute>
-           <attribute name="verticalHeaderHighlightSections">
-            <bool>false</bool>
-           </attribute>
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QTableWidget" name="resultTableWidget">
+         <property name="font">
+          <font>
+           <family>幼圆</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:rgb(195, 227, 218);
+border-radius:5px;
+</string>
+         </property>
+         <property name="autoScrollMargin">
+          <number>27</number>
+         </property>
+         <property name="columnCount">
+          <number>2</number>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderCascadingSectionResizes">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderHighlightSections">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>幼圆</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>价格</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>幼圆</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="textAlignment">
+           <set>AlignCenter</set>
+          </property>
+          <property name="foreground">
+           <brush brushstyle="NoBrush">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </property>
+         </column>
+        </widget>
        </item>
       </layout>
      </item>
@@ -175,7 +230,7 @@ border-radius:5px;
   </layout>
  </widget>
  <resources>
-  <include location="ico_src.qrc"/>
+  <include location="../../../ui1.0.0/ico_src.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_scanCodeWindow(object):
-    def scanCodeWindowSetupUi(self, scanCodeWindow):
+    def setupUi(self, scanCodeWindow):
         scanCodeWindow.setObjectName("scanCodeWindow")
         scanCodeWindow.resize(1024, 600)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
@@ -29,21 +29,6 @@ class Ui_scanCodeWindow(object):
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.back_main_but = QtWidgets.QPushButton(scanCodeWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.back_main_but.sizePolicy().hasHeightForWidth())
-        self.back_main_but.setSizePolicy(sizePolicy)
-        self.back_main_but.setMinimumSize(QtCore.QSize(90, 40))
-        font = QtGui.QFont()
-        font.setFamily("幼圆")
-        font.setPointSize(14)
-        self.back_main_but.setFont(font)
-        self.back_main_but.setStyleSheet("background-color:rgb(125, 200, 203);\n"
-"border-radius: 3px;")
-        self.back_main_but.setObjectName("back_main_but")
-        self.verticalLayout_2.addWidget(self.back_main_but)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -105,6 +90,5 @@ class Ui_scanCodeWindow(object):
     def retranslateUi(self, scanCodeWindow):
         _translate = QtCore.QCoreApplication.translate
         scanCodeWindow.setWindowTitle(_translate("scanCodeWindow", "扫码"))
-        self.back_main_but.setText(_translate("scanCodeWindow", "返回"))
         self.scan_qrcode_label.setText(_translate("scanCodeWindow", "微信扫码登陆"))
 import ico_src_rc

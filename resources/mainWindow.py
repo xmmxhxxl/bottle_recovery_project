@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_mainWindow(object):
-    def mainWindowSetupUi(self, mainWindow):
+    def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
         mainWindow.setEnabled(True)
         mainWindow.resize(1024, 600)
@@ -26,8 +26,8 @@ class Ui_mainWindow(object):
         icon.addPixmap(QtGui.QPixmap(":/mainWindow_ico/mainWindow_ico.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         mainWindow.setWindowIcon(icon)
         mainWindow.setStyleSheet("background-color:rgb(195, 227, 218)")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(mainWindow)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.verticalLayout = QtWidgets.QVBoxLayout(mainWindow)
+        self.verticalLayout.setObjectName("verticalLayout")
         self.main_layout = QtWidgets.QVBoxLayout()
         self.main_layout.setSizeConstraint(QtWidgets.QLayout.SetMaximumSize)
         self.main_layout.setContentsMargins(-1, -1, -1, 0)
@@ -150,17 +150,37 @@ class Ui_mainWindow(object):
         self.main_suggestion_but.setStyleSheet("border-radius:5px;\n"
 "background-color:rgb(33, 182, 178);")
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("icon/idea_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap("../../../ui1.0.0/icon/idea_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap(":/mainWindow_ico/idea_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.main_suggestion_but.setIcon(icon6)
         self.main_suggestion_but.setObjectName("main_suggestion_but")
         self.buttonLayout_2.addWidget(self.main_suggestion_but)
+        self.main_log_out_but = QtWidgets.QPushButton(mainWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.main_log_out_but.sizePolicy().hasHeightForWidth())
+        self.main_log_out_but.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setFamily("幼圆")
+        font.setPointSize(14)
+        self.main_log_out_but.setFont(font)
+        self.main_log_out_but.setStyleSheet("border-radius:5px;\n"
+"background-color:rgb(33, 182, 178);")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap(":/mainWindow_ico/log_out_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.main_log_out_but.setIcon(icon7)
+        self.main_log_out_but.setIconSize(QtCore.QSize(30, 30))
+        self.main_log_out_but.setObjectName("main_log_out_but")
+        self.buttonLayout_2.addWidget(self.main_log_out_but)
         self.buttonLayout_2.setStretch(0, 1)
         self.buttonLayout_2.setStretch(1, 1)
         self.buttonLayout_2.setStretch(2, 1)
+        self.buttonLayout_2.setStretch(3, 1)
         self.main_layout.addLayout(self.buttonLayout_2)
         self.main_layout.setStretch(0, 6)
         self.main_layout.setStretch(1, 2)
-        self.verticalLayout_3.addLayout(self.main_layout)
+        self.verticalLayout.addLayout(self.main_layout)
 
         self.retranslateUi(mainWindow)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
@@ -174,4 +194,5 @@ class Ui_mainWindow(object):
         self.main_question_but.setText(_translate("mainWindow", "遇到问题"))
         self.mian_convert_but.setText(_translate("mainWindow", "积分兑换"))
         self.main_suggestion_but.setText(_translate("mainWindow", "意见和建议"))
+        self.main_log_out_but.setText(_translate("mainWindow", "退出登陆"))
 import ico_src_rc

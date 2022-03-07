@@ -125,11 +125,13 @@ border-radius: 3px;</string>
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">border-radius:5px;
-background-color:rgb(170, 170, 255)</string>
+              <string notr="true">border-radius:5px;</string>
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="ico_src.qrc">:/mainWindow_ico/userImageLogin.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -150,8 +152,14 @@ background-color:rgb(170, 170, 255)</string>
                <height>50</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <family>幼圆</family>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <property name="text">
-              <string>昵称</string>
+              <string>加载中...</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -210,7 +218,7 @@ background-color:rgb(170, 170, 255)</string>
               <string notr="true">background-color:rgb(168, 221, 217)</string>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>加载中...</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -262,7 +270,7 @@ background-color:rgb(170, 170, 255)</string>
               <string notr="true">background-color:rgb(168, 221, 217)</string>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>加载中...</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -314,7 +322,7 @@ background-color:rgb(170, 170, 255)</string>
               <string notr="true">background-color:rgb(168, 221, 217)</string>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>加载中...</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -355,7 +363,7 @@ background-color:rgb(170, 170, 255)</string>
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="user_reward_name">
+            <widget class="QLabel" name="user_reward_number_2">
              <property name="font">
               <font>
                <family>幼圆</family>
@@ -366,7 +374,7 @@ background-color:rgb(170, 170, 255)</string>
               <string notr="true">background-color:rgb(168, 221, 217)</string>
              </property>
              <property name="text">
-              <string>0</string>
+              <string>加载中...</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -374,7 +382,7 @@ background-color:rgb(170, 170, 255)</string>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="user_reward_number">
+            <widget class="QLabel" name="user_reward_name">
              <property name="font">
               <font>
                <family>幼圆</family>

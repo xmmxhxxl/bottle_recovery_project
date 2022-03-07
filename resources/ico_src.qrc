@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="mainWindow_ico">
+    <file>log_out_icon.png</file>
+    <file>userImageLogin.png</file>
+    <file>user_background_icon_3.png</file>
     <file>question_icon.png</file>
     <file>user_ico.png</file>
     <file>kind_ico.png</file>
