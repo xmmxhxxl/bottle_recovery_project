@@ -1,0 +1,22 @@
+
+qpython:S117"URename this parameter "avatarUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÕÔ‚¾ıÿÿÿÿ
+ppython:S117"TRename this parameter "nickName" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÕÔ‚¾ıÿÿÿÿ
+npython:S117"RRename this parameter "openId" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÕÔ‚¾ıÿÿÿÿ
+lpython:S117R"URename this parameter "avatarUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(š®úû
+kpython:S117R"TRename this parameter "nickName" to match the regular expression ^[_a-z][a-z0-9_]*$.(š®úû
+ipython:S117R"RRename this parameter "openId" to match the regular expression ^[_a-z][a-z0-9_]*$.(š®úû
+kpython:S117["URename this parameter "avatarUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+jpython:S117["TRename this parameter "nickName" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+hpython:S117["RRename this parameter "openId" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+lpython:S117n"URename this parameter "avatarUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(Æªõ
+kpython:S117n"TRename this parameter "nickName" to match the regular expression ^[_a-z][a-z0-9_]*$.(Æªõ
+ipython:S117n"RRename this parameter "openId" to match the regular expression ^[_a-z][a-z0-9_]*$.(Æªõ
+ppython:S117‡"XRename this parameter "avatarUrlSet" to match the regular expression ^[_a-z][a-z0-9_]*$.(½ç™ª
+mpython:S117‡"URename this parameter "userTotal" to match the regular expression ^[_a-z][a-z0-9_]*$.(½ç™ª
+lpython:S117“"URename this parameter "avatarUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+kpython:S117“"TRename this parameter "nickName" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+ipython:S117“"RRename this parameter "openId" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶“ÉQ
+rpython:S117´"ZRename this parameter "bottleImageUrl" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÁï‰
+opython:S117´"WRename this parameter "bottleLabel" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÁï‰
+npython:S117´"VRename this parameter "bottleName" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÁï‰
+opython:S117´"WRename this parameter "bottlePrice" to match the regular expression ^[_a-z][a-z0-9_]*$.(şÁï‰

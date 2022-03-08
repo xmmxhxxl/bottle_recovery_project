@@ -1,0 +1,18 @@
+
+upython:S116 "RRename this field "gridLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(áÀ²úøÿÿÿÿ8ÒÒ™ö/
+{python:S116"XRename this field "verticalLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(Àï‚Íùÿÿÿÿ8ÒÒ™ö/
+wpython:S116"TRename this field "gridLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(Ûùİ‚úÿÿÿÿ8ÒÒ™ö/
+vpython:S1163"XRename this field "horizontalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(›‰½³8ÒÒ™ö/
+tpython:S116$"VRename this field "verticalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(íˆÁ8ÒÒ™ö/
+python:S101"kRename class "Ui_scanCodeWindow" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(º—¹
+xpython:S117"ZRename this parameter "scanCodeWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(ãÚÁ8ÓÒ™ö/
+~python:S117"[Rename this local variable "sizePolicy" to match the regular expression ^[_a-z][a-z0-9_]*$.(Œ¹ÿÿÿÿÿ8ÓÒ™ö/
+~python:S117""[Rename this local variable "spacerItem" to match the regular expression ^[_a-z][a-z0-9_]*$.(¾ışÿÿÿÿ8ÓÒ™ö/
+zpython:S1176"\Rename this local variable "spacerItem1" to match the regular expression ^[_a-z][a-z0-9_]*$.(‹‡öÔ8ÓÒ™ö/
+python:S117H"\Rename this local variable "spacerItem2" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ê•ù‘ûÿÿÿÿ8ÓÒ™ö/
+zpython:S117N"\Rename this local variable "spacerItem3" to match the regular expression ^[_a-z][a-z0-9_]*$.(¬áã8ÓÒ™ö/
+python:S117P"\Rename this local variable "spacerItem4" to match the regular expression ^[_a-z][a-z0-9_]*$.( €Á‘ùÿÿÿÿ8ÓÒ™ö/
+python:S117R"\Rename this local variable "spacerItem5" to match the regular expression ^[_a-z][a-z0-9_]*$.(À•‰øÿÿÿÿ8ÓÒ™ö/
+ipython:S100"KRename method "setupUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(ãÚÁ8ÕÒ™ö/
+}python:S117Z"ZRename this parameter "scanCodeWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŸîŸ¿øÿÿÿÿ8ÕÒ™ö/
+tpython:S100Z"QRename method "retranslateUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(ŸîŸ¿øÿÿÿÿ8ÖÒ™ö/

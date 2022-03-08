@@ -215,6 +215,9 @@ background-color:rgb(125, 200, 203);
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
        </column>
        <column>
         <property name="text">
@@ -226,6 +229,9 @@ background-color:rgb(125, 200, 203);
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
+        </property>
        </column>
        <column>
         <property name="text">
@@ -236,6 +242,9 @@ background-color:rgb(125, 200, 203);
           <family>幼圆</family>
           <pointsize>14</pointsize>
          </font>
+        </property>
+        <property name="textAlignment">
+         <set>AlignCenter</set>
         </property>
        </column>
       </widget>

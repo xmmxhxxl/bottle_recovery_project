@@ -138,6 +138,18 @@ border-radius: 3px;</string>
          </item>
          <item>
           <widget class="QLabel" name="videoLabel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>494</width>
+             <height>482</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">border-radius: 5px;
 
@@ -152,11 +164,29 @@ border-radius: 3px;</string>
        </item>
        <item>
         <widget class="QTableWidget" name="resultTableWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>495</width>
+           <height>525</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <family>幼圆</family>
            <pointsize>14</pointsize>
           </font>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::DefaultContextMenu</enum>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:rgb(195, 227, 218);

@@ -1,0 +1,24 @@
+
+rpython:S1192ë"MDefine a constant instead of duplicating this literal "æŸ¥è¯¢ä¸­..." 4 times.(§„Ï…ùÿÿÿÿ8ëØ¥™ö/
+ƒpython:S1192p"dDefine a constant instead of duplicating this literal "background-color:rgb(168, 221, 217)" 8 times.(úŸ÷Œ8Ğ½Ì˜ö/
+{python:S116"XRename this field "verticalLayout_8" to match the regular expression ^[_a-z][_a-z0-9]*$.(ì¢ëÿøÿÿÿÿ8Ñ½Ì˜ö/
+vpython:S116="XRename this field "verticalLayout_7" to match the regular expression ^[_a-z][_a-z0-9]*$.(‰¨ƒ8Ñ½Ì˜ö/
+vpython:S116e"XRename this field "horizontalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(›‰½³8Ñ½Ì˜ö/
+{python:S116?"XRename this field "verticalLayout_5" to match the regular expression ^[_a-z][_a-z0-9]*$.(°ç’şÿÿÿÿ8Ñ½Ì˜ö/
+|python:S116ƒ"XRename this field "verticalLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(Àï‚Íùÿÿÿÿ8Ñ½Ì˜ö/
+xpython:S116 "ZRename this field "horizontalLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(ğÀÀŞ8Ñ½Ì˜ö/
+|python:S116"XRename this field "verticalLayout_3" to match the regular expression ^[_a-z][_a-z0-9]*$.(å´øÎıÿÿÿÿ8Ñ½Ì˜ö/
+wpython:S116¹"XRename this field "verticalLayout_4" to match the regular expression ^[_a-z][_a-z0-9]*$.(àğ“•8Ñ½Ì˜ö/
+tpython:S116h"VRename this field "verticalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(íˆÁ8Ñ½Ì˜ö/
+{python:S116a"XRename this field "verticalLayout_6" to match the regular expression ^[_a-z][_a-z0-9]*$.(¯ü×ƒùÿÿÿÿ8Ğ½Ì˜ö/
+{python:S116"XRename this field "verticalLayout_9" to match the regular expression ^[_a-z][_a-z0-9]*$.(ÅÜ¿±ıÿÿÿÿ8Ñ½Ì˜ö/
+}python:S1168"ZRename this field "horizontalLayout_3" to match the regular expression ^[_a-z][_a-z0-9]*$.(ğµ€‡øÿÿÿÿ8Ğ½Ì˜ö/
+…python:S101"gRename class "Ui_userWindow" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ïå°Ş8Ã¸Êîõ/
+~python:S117"[Rename this local variable "sizePolicy" to match the regular expression ^[_a-z][a-z0-9_]*$.(Œ¹ÿÿÿÿÿ8Ò½Ì˜ö/
+~python:S1174"[Rename this local variable "spacerItem" to match the regular expression ^[_a-z][a-z0-9_]*$.(¾ışÿÿÿÿ8Ò½Ì˜ö/
+zpython:S117;"\Rename this local variable "spacerItem1" to match the regular expression ^[_a-z][a-z0-9_]*$.(›ëŸĞ8Ò½Ì˜ö/
+python:S117^"\Rename this local variable "spacerItem2" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÄÛŒ°şÿÿÿÿ8Ò½Ì˜ö/
+ypython:S117"VRename this parameter "userWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(³Ÿ°Ñùÿÿÿÿ8Ò½Ì˜ö/
+npython:S100"KRename method "setupUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(³Ÿ°Ñùÿÿÿÿ8ˆğÍ˜ö/
+upython:S117æ"VRename this parameter "userWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(¾ÍÂÒ8Ò½Ì˜ö/
+ppython:S100æ"QRename method "retranslateUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(¾ÍÂÒ8Ò½Ì˜ö/

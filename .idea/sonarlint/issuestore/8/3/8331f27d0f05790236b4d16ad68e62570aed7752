@@ -1,0 +1,15 @@
+
+vpython:S116"XRename this field "horizontalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(›‰½³8ÂÎÈ£ö/
+upython:S116M"RRename this field "videoLabel" to match the regular expression ^[_a-z][_a-z0-9]*$.(Êšœ‘øÿÿÿÿ8ÂÎÈ£ö/
+tpython:S116C"VRename this field "verticalLayout" to match the regular expression ^[_a-z][_a-z0-9]*$.(íˆÁ8ÂÎÈ£ö/
+wpython:S116W"YRename this field "resultTableWidget" to match the regular expression ^[_a-z][_a-z0-9]*$.(å¥¨µ8ÂÎÈ£ö/
+xpython:S116A"ZRename this field "horizontalLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(ğÀÀŞ8ÂÎÈ£ö/
+{python:S116"XRename this field "verticalLayout_2" to match the regular expression ^[_a-z][_a-z0-9]*$.(Àï‚Íùÿÿÿÿ8ÂÎÈ£ö/
+{python:S116"XRename this field "verticalLayout_3" to match the regular expression ^[_a-z][_a-z0-9]*$.(öŞ»êúÿÿÿÿ8ÂÎÈ£ö/
+python:S101"jRename class "Ui_convertWindow" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ıÀ‡Á
+wpython:S117"YRename this parameter "convertWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(‰òÊÔ8ÂÎÈ£ö/
+~python:S117"[Rename this local variable "sizePolicy" to match the regular expression ^[_a-z][a-z0-9_]*$.(Œ¹ÿÿÿÿÿ8ÃÎÈ£ö/
+~python:S117-"[Rename this local variable "spacerItem" to match the regular expression ^[_a-z][a-z0-9_]*$.(ÍñÎìÿÿÿÿÿ8ÃÎÈ£ö/
+ipython:S100"KRename method "setupUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(‰òÊÔ8ÃÎÈ£ö/
+}python:S117‚"YRename this parameter "convertWindow" to match the regular expression ^[_a-z][a-z0-9_]*$.(ŒªòÊÿÿÿÿÿ8ÃÎÈ£ö/
+upython:S100‚"QRename method "retranslateUi" to match the regular expression ^[a-z_][a-z0-9_]*$.(ŒªòÊÿÿÿÿÿ8ÃÎÈ£ö/

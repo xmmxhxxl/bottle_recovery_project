@@ -5,6 +5,7 @@
 # @Software : PyCharm
 import sys
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QApplication, QDialog, QLabel, QTableWidgetItem, QAbstractItemView, QHeaderView
 from PyQt5 import QtCore
 
@@ -14,7 +15,7 @@ from resources.mainWindow import Ui_mainWindow
 from resources.userWindow import Ui_userWindow
 from resources.kindWindow import Ui_kindWindow
 
-from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread
+from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread
 
 
 # 主窗口
@@ -39,7 +40,6 @@ class FirstWindow(QDialog, Ui_mainWindow):
         self.main_examine_but.clicked.connect(self.user_but_clicked)
         self.main_log_out_but.clicked.connect(self.user_log_out_clicked)
 
-
     # 设置槽函数
     def account_but_clicked(self):
         self.hide()
@@ -58,14 +58,14 @@ class FirstWindow(QDialog, Ui_mainWindow):
 
     def user_log_out_clicked(self):
         self.hide()
-        self.showscanCodeWindow = ScanCodeWindow()
+        self.showscanCodeWindow = ScanCodeWindow(False)
         self.showscanCodeWindow.show()
 
 
 # 扫码窗口
 class ScanCodeWindow(QWidget, Ui_scanCodeWindow):
 
-    def __init__(self, parent=None):
+    def __init__(self, mqttStart, parent=None):
         super(ScanCodeWindow, self).__init__(parent)
 
         # 初始化
@@ -74,9 +74,10 @@ class ScanCodeWindow(QWidget, Ui_scanCodeWindow):
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
 
         # mqtt线程
-        self.mqtt = MQTTThread()
-        self.mqtt.user_sin.connect(self.setUserInformation)
-        self.mqtt.start()
+        if mqttStart:
+            self.mqtt = MQTTThread()
+            self.mqtt.user_sin.connect(self.setUserInformation)
+            self.mqtt.start()
 
     # 显示用户
     def setUserInformation(self, openId, nickName, avatarUrl):
@@ -91,17 +92,33 @@ class ConvertWindow(QWidget, Ui_convertWindow):
     def __init__(self, openId, nickName, avatarUrl):
         super(ConvertWindow, self).__init__()
         self.setupUi(self)
+
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+
+        # 设置用户信息
         self.setOpenId = openId
         self.setNickName = nickName
         self.setAvatarUrl = avatarUrl
+
+        # 识别线程
+        self.playVideo = BottleIdentifyThread()
+        self.playVideo.playLabel = self.videoLabel
+        self.playVideo.resultTableWidget = self.resultTableWidget
+        self.playVideo.identifySin.connect(self.setIdentifySpecies)
+        self.playVideo.start()
+
+        # 按键响应
         self.back_main_but.clicked.connect(self.backMainWindow)
 
     def backMainWindow(self):
         self.hide()
+        self.playVideo.playVideo = False
         self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
         self.showMainWindow.show()
+
+    def setIdentifySpecies(self):
+        print("识别")
 
 
 # 用户窗口
@@ -194,13 +211,22 @@ class KindWindow(QWidget, Ui_kindWindow):
 
             # 显示信息
             self.kind_infortion_table.setCellWidget(item, 0, image)
-            self.kind_infortion_table.setItem(item, 1, QTableWidgetItem(bottleName[item]))
-            self.kind_infortion_table.setItem(item, 2, QTableWidgetItem(str(bottlePrice[item])))
+
+            bottleNameItem = QTableWidgetItem(str(bottleName[item]))
+            bottleLabelItem = QTableWidgetItem(str(bottlePrice[item]))
+
+            # 设置单元格居中
+            bottleNameItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            bottleLabelItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+
+            self.kind_infortion_table.setItem(item, 1, bottleNameItem)
+            self.kind_infortion_table.setItem(item, 2, bottleLabelItem)
+
             QApplication.processEvents()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    show = ScanCodeWindow()
+    show = ScanCodeWindow(True)
     show.show()
     sys.exit(app.exec_())

@@ -75,6 +75,12 @@ class Ui_convertWindow(object):
         self.cue_label.setObjectName("cue_label")
         self.verticalLayout.addWidget(self.cue_label)
         self.videoLabel = QtWidgets.QLabel(convertWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.videoLabel.sizePolicy().hasHeightForWidth())
+        self.videoLabel.setSizePolicy(sizePolicy)
+        self.videoLabel.setMaximumSize(QtCore.QSize(494, 482))
         self.videoLabel.setStyleSheet("border-radius: 5px;\n"
 "\n"
 "")
@@ -85,10 +91,18 @@ class Ui_convertWindow(object):
         self.verticalLayout.setStretch(1, 14)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.resultTableWidget = QtWidgets.QTableWidget(convertWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.resultTableWidget.sizePolicy().hasHeightForWidth())
+        self.resultTableWidget.setSizePolicy(sizePolicy)
+        self.resultTableWidget.setMaximumSize(QtCore.QSize(495, 525))
         font = QtGui.QFont()
         font.setFamily("幼圆")
         font.setPointSize(14)
         self.resultTableWidget.setFont(font)
+        self.resultTableWidget.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.resultTableWidget.setLayoutDirection(QtCore.Qt.RightToLeft)
         self.resultTableWidget.setStyleSheet("background-color:rgb(195, 227, 218);\n"
 "border-radius:5px;\n"
 "")
