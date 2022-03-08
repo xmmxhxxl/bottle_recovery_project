@@ -17,18 +17,23 @@ from paho.mqtt import client as mqtt_client
 
 from DBUtil import DBUtilClass
 
+"""
+    MQTT线程,MQTT服务器的订阅、收发数据
+"""
 
-# mqtt线程
+
 class MQTTThread(QThread):
     user_sin = pyqtSignal(object, object, object)
     switch_sin = pyqtSignal(str)
 
-    def __init__(self, parent=None):
+    def __init__(self, subscribeTopic, parent=None):
         super(MQTTThread, self).__init__(parent)
 
         self.broker = 'www.xmxhxl.top'
         self.port = 1883
         self.client_id = f'python-mqtt-{random.randint(0, 1000)}'
+        self.receiverData = True
+        self.subscribeTopic = subscribeTopic
 
     def connect_mqtt(self) -> mqtt_client:
         def on_connect(client, userdata, flags, rc):
@@ -45,22 +50,28 @@ class MQTTThread(QThread):
     def subscribe(self, client: mqtt_client, topic):
         def on_message(client, userdata, msg):
             data = json.loads(msg.payload.decode())
-            if msg.topic == 'user/openId':
-                self.user_sin.emit(data['openId'], data['nickName'], data['avatarUrl'])
-                print(data)
-            else:
-                self.switch_sin.emit(data['msg'])
+            if self.receiverData:
+                if msg.topic == 'user/openId':
+                    self.user_sin.emit(data['openId'], data['nickName'], data['avatarUrl'])
+                    print(data)
+                else:
+                    self.switch_sin.emit(data['msg'])
 
         client.subscribe(topic)
         client.on_message = on_message
 
     def run(self):
-        client = self.connect_mqtt()
-        self.subscribe(client, "user/#")
-        client.loop_forever()
+        if self.subscribeTopic:
+            client = self.connect_mqtt()
+            self.subscribe(client, "user/#")
+            client.loop_forever()
 
 
-# 用户窗口线程
+"""
+    用户窗口,请求用户头像,余额等信息,防止界面卡顿
+"""
+
+
 class ReqUserInformationThread(QThread):
     reqUserSin = pyqtSignal(object, object)
 
@@ -86,7 +97,11 @@ class ReqUserInformationThread(QThread):
                 self.reqUserInfo = False
 
 
-# 瓶子种类查询线程
+"""
+    请求oss服务器的瓶子种类照片、查询数据库中的瓶子种类和数据
+"""
+
+
 class BottleFindThread(QThread):
     bottleFindSin = pyqtSignal(object, object, object, object)
 
@@ -121,7 +136,11 @@ class BottleFindThread(QThread):
                 self.findSin = False
 
 
-# 识别窗口线程
+"""
+    识别窗口线程、显示视频流等
+"""
+
+
 class BottleIdentifyThread(QThread):
     identifySin = pyqtSignal()
 
@@ -132,6 +151,7 @@ class BottleIdentifyThread(QThread):
         self.cap = cv.VideoCapture()
         self.playLabel = QLabel()
         self.resultTableWidget = QTableWidget()
+        self.cue = QLabel()
 
         # 参数初始化
         self.length = 0
@@ -151,6 +171,7 @@ class BottleIdentifyThread(QThread):
     def run(self):
 
         self.cap = cv.VideoCapture(0)
+        self.cue.setText("启动成功,请将瓶子放至识别区!")
         while self.playVideo:
             self.frameNumber += 1
             grabbed, self.image = self.cap.read()
@@ -199,8 +220,8 @@ class BottleIdentifyThread(QThread):
                         self.length = 0
 
                     print(self.mseList)
-                    variance = round(np.var(self.mseList), 5)
-                    average = round(np.mean(self.mseList), 5)
+                    variance = round(np.var(self.mseList), 3)
+                    average = round(np.mean(self.mseList), 3)
 
                     print(variance, average)
 
@@ -212,3 +233,5 @@ class BottleIdentifyThread(QThread):
                         print("touch off")
                         self.identifySin.emit()
                         self.frequency = 0
+
+# 数据处理线程

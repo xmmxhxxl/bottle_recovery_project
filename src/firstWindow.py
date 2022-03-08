@@ -17,8 +17,11 @@ from resources.kindWindow import Ui_kindWindow
 
 from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread
 
+"""
+   主窗口
+"""
 
-# 主窗口
+
 class FirstWindow(QDialog, Ui_mainWindow):
 
     def __init__(self, openId, nickName, avatarUrl, ):
@@ -29,7 +32,7 @@ class FirstWindow(QDialog, Ui_mainWindow):
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
 
-        # 实例化窗口类
+        # 设置用户数据
         self.setOpenId = openId
         self.setNickName = nickName
         self.setAvatarUrl = avatarUrl
@@ -39,6 +42,12 @@ class FirstWindow(QDialog, Ui_mainWindow):
         self.main_identify_but.clicked.connect(self.identify_but_clicked)
         self.main_examine_but.clicked.connect(self.user_but_clicked)
         self.main_log_out_but.clicked.connect(self.user_log_out_clicked)
+
+        # 窗口初始化
+        self.showConvertWindow = None
+        self.showKindWindow = None
+        self.showUserWindow = None
+        self.showScanCodeWindow = None
 
     # 设置槽函数
     def account_but_clicked(self):
@@ -58,11 +67,15 @@ class FirstWindow(QDialog, Ui_mainWindow):
 
     def user_log_out_clicked(self):
         self.hide()
-        self.showscanCodeWindow = ScanCodeWindow(False)
-        self.showscanCodeWindow.show()
+        self.showScanCodeWindow = ScanCodeWindow(True)
+        self.showScanCodeWindow.show()
 
 
-# 扫码窗口
+"""
+    扫码窗口,用户扫码进行登录
+"""
+
+
 class ScanCodeWindow(QWidget, Ui_scanCodeWindow):
 
     def __init__(self, mqttStart, parent=None):
@@ -72,21 +85,26 @@ class ScanCodeWindow(QWidget, Ui_scanCodeWindow):
         self.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.showMainWindow = None
 
         # mqtt线程
-        if mqttStart:
-            self.mqtt = MQTTThread()
-            self.mqtt.user_sin.connect(self.setUserInformation)
-            self.mqtt.start()
+        self.mqtt = MQTTThread(subscribeTopic=mqttStart)
+        self.mqtt.user_sin.connect(self.setUserInformation)
+        self.mqtt.start()
 
     # 显示用户
     def setUserInformation(self, openId, nickName, avatarUrl):
         self.hide()
+        self.mqtt.receiverData = False
         self.showMainWindow = FirstWindow(openId, nickName, avatarUrl)
         self.showMainWindow.show()
 
 
-# 识别窗口
+"""
+    识别窗口,显示视频流,显示瓶子识别信息
+"""
+
+
 class ConvertWindow(QWidget, Ui_convertWindow):
 
     def __init__(self, openId, nickName, avatarUrl):
@@ -95,6 +113,7 @@ class ConvertWindow(QWidget, Ui_convertWindow):
 
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.showMainWindow =None
 
         # 设置用户信息
         self.setOpenId = openId
@@ -105,6 +124,7 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         self.playVideo = BottleIdentifyThread()
         self.playVideo.playLabel = self.videoLabel
         self.playVideo.resultTableWidget = self.resultTableWidget
+        self.playVideo.cue = self.cue_label
         self.playVideo.identifySin.connect(self.setIdentifySpecies)
         self.playVideo.start()
 
@@ -121,7 +141,11 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         print("识别")
 
 
-# 用户窗口
+"""
+    用户窗口,显示用户信息
+"""
+
+
 class UserWindow(QWidget, Ui_userWindow):
 
     def __init__(self, openId, nickName, avatarUrl, parent=None):
@@ -129,6 +153,7 @@ class UserWindow(QWidget, Ui_userWindow):
         self.setupUi(self)
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+        self.showMainWindow = None
 
         self.setOpenId = openId
         self.setNickName = nickName
@@ -158,7 +183,11 @@ class UserWindow(QWidget, Ui_userWindow):
         self.user_reward_number.setText("0")
 
 
-# 种类窗口
+"""
+    瓶子种类显示窗口,显示可回收的瓶子种类信息
+"""
+
+
 class KindWindow(QWidget, Ui_kindWindow):
 
     def __init__(self, openId, nickName, avatarUrl):
@@ -173,6 +202,7 @@ class KindWindow(QWidget, Ui_kindWindow):
         self.kind_infortion_table.verticalHeader().setVisible(False)
         self.kind_infortion_table.horizontalHeader().setVisible(False)
         self.kind_infortion_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.showMainWindow = None
 
         # 设置用户参数
         self.setOpenId = openId

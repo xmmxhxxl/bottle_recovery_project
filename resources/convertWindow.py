@@ -147,7 +147,7 @@ class Ui_convertWindow(object):
         self.back_main_but.setText(_translate("convertWindow", "返回"))
         self.kind_text_label.setText(_translate("convertWindow", "种类"))
         self.price_text_label.setText(_translate("convertWindow", "价格"))
-        self.cue_label.setText(_translate("convertWindow", "请将瓶子放至识别区"))
+        self.cue_label.setText(_translate("convertWindow", "启动中..."))
         item = self.resultTableWidget.horizontalHeaderItem(0)
         item.setText(_translate("convertWindow", "新建列"))
         item = self.resultTableWidget.horizontalHeaderItem(1)
