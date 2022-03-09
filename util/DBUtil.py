@@ -90,7 +90,7 @@ class DBUtilClass:
     def update(self, sql, params):
         return self._edit(sql, params)
 
-#
+
 # if __name__ == '__main__':
 #     mysql = DBUtilClass()
 #     # print(mysql.select_one("SELECT total FROM user_db WHERE `openId`=%s", ['oW-4T5CiZ5Z6FSt7AuKY2b-gDLsY']))
@@ -103,6 +103,6 @@ class DBUtilClass:
 #     for item in data:
 #         bottleImageUrl.append(item["imageUrl"])
 #         bottleName.append(item["bottleName"])
-#         bottleLabel.append(item["label"])
+#         bottleLabel.append(item["bottleLabel"])
 #         bottlePrice.append(item["bottlePrice"])
 #     print(bottleLabel)

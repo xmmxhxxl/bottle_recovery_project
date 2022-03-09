@@ -15,7 +15,8 @@ from resources.mainWindow import Ui_mainWindow
 from resources.userWindow import Ui_userWindow
 from resources.kindWindow import Ui_kindWindow
 
-from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread
+from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, \
+    GetBottleIdentifyResultThread, InsertDataThread,ServoThread
 
 """
    主窗口
@@ -113,7 +114,12 @@ class ConvertWindow(QWidget, Ui_convertWindow):
 
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
-        self.showMainWindow =None
+
+        # 设置表不可编辑、表头自动伸缩
+        self.resultTableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.resultTableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        self.showMainWindow = None
 
         # 设置用户信息
         self.setOpenId = openId
@@ -128,6 +134,21 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         self.playVideo.identifySin.connect(self.setIdentifySpecies)
         self.playVideo.start()
 
+        # 获取识别数据线程
+        self.identifyResult = GetBottleIdentifyResultThread()
+        self.identifyResult.identifyStart = False
+        self.identifyResult.getIdentifyResult.connect(self.setBottleInformation)
+        self.bottleNameList = []
+        self.bottlePriceList = []
+
+        # 数据库插入线程
+        self.insertData = InsertDataThread()
+        self.insertData.start()
+
+        # 舵机启动线程
+        self.servo = ServoThread()
+        self.servo.start()
+
         # 按键响应
         self.back_main_but.clicked.connect(self.backMainWindow)
 
@@ -137,9 +158,54 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
         self.showMainWindow.show()
 
+    # 视频现成响应槽
     def setIdentifySpecies(self):
-        print("识别")
+        self.identifyResult.start()
+        self.identifyResult.identifyStart = True
 
+    # 识别结果响应槽
+    def setBottleInformation(self, bottleName, bottleLabel, bottlePrice, bottleSimilarity):
+        print(bottleName, bottleLabel, bottlePrice, bottleSimilarity, self.setOpenId)
+        row = self.resultTableWidget.rowCount()
+        if bottleSimilarity > 50:
+            self.resultTableWidget.insertRow(row)
+
+            bottleNameItem = QTableWidgetItem(str(bottleName))
+            bottlePriceItem = QTableWidgetItem(str(bottlePrice))
+            bottleNameItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            bottlePriceItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+
+            self.resultTableWidget.setItem(row, 0, bottlePriceItem)
+            self.resultTableWidget.setItem(row, 1, bottleNameItem)
+
+            QApplication.processEvents()
+
+            self.insertData.label = bottleLabel
+            self.insertData.name = bottleName
+            self.insertData.price = bottlePrice
+            self.insertData.openId = self.setOpenId
+
+            self.servo.startServo = True
+            self.insertData.insertDataSin = True
+
+
+'''
+            rows = self.resultTableWidget.rowCount()
+            for item in range(0, rows):
+                price = self.resultTableWidget.item(item, 0).text()
+                totalPrice += eval(price)
+
+            self.resultTableWidget.insertRow(rows)
+
+            bottleTileItem = QTableWidgetItem(str("总价"))
+            bottleTotalPriceItem = QTableWidgetItem(str(totalPrice))
+
+            bottleTileItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            bottleTotalPriceItem.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+
+            self.resultTableWidget.setItem(rows, 1, bottleTileItem)
+            self.resultTableWidget.setItem(rows, 0, bottleTotalPriceItem)
+'''
 
 """
     用户窗口,显示用户信息

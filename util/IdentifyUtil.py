@@ -3,6 +3,8 @@
 # @Author : 黎满
 # @File : IdentifyUtil.py
 # @Software : PyCharm
+import time
+
 import requests as re
 from DBUtil import DBUtilClass
 
@@ -20,15 +22,15 @@ class IdentifyUtil:
         self.bottlePrice = {}
 
         self.mysql = DBUtilClass()
-        self.kindList = self.mysql.select_all("select * from bottleInformation")
-        print(self.kindList)
+        self.kindList = None
         self.findKind()
 
     def findKind(self):
+        self.kindList = self.mysql.select_all("select * from bottleInformation")
         for i in self.kindList:
             self.bottleLabel.append(i["bottleLabel"])
             self.bottleName.append(i["bottleName"])
-            self.bottlePrice.update({i["bottleLabel"]: i["bottleName"]})
+            self.bottlePrice.update({i["bottleLabel"]: i["bottlePrice"]})
 
     # 请求、处理数据
     def resultAnalysis(self):
@@ -50,24 +52,19 @@ class IdentifyUtil:
                             print("请求识别结果失败: IdentifyUtil -> resultAnalysis", e)
 
             result = tuple(result["results"])[0]
-            label = result['label']
-            similarity = round(result["score"] * 100, 2)
+            bottleLabel = result['label']
+            bottleSimilarity = round(result["score"] * 100, 2)
 
-            for self.item in self.bottleLabel:
-                if similarity < 70:
-                    return None, None
+            bottleName = self.bottleName[self.bottleLabel.index(bottleLabel)]
+            bottlePrice = self.bottlePrice[bottleLabel]
 
-                if label == self.item and similarity > 90:
-                    bottleName = self.bottleName[self.bottleLabel.index(self.item)]
-                    price = self.bottlePrice[label]
-                    print(label, similarity, price, bottleName)
+            return bottleName, bottleLabel, bottlePrice, bottleSimilarity
 
-                    return bottleName, price
         except Exception as ex:
             print("IdentifyUtil -> resultAnalysis ->", ex)
 
-
-if __name__ == '__main__':
-    indef = IdentifyUtil()
-    bottle, price = indef.resultAnalysis()
-    print(bottle, price)
+#
+# if __name__ == '__main__':
+#     indef = IdentifyUtil()
+#     name, label, price, similarity = indef.resultAnalysis()
+#     print(name, label, price, similarity)
