@@ -16,7 +16,8 @@ from resources.userWindow import Ui_userWindow
 from resources.kindWindow import Ui_kindWindow
 
 from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, \
-    GetBottleIdentifyResultThread, InsertDataThread,ServoThread
+    GetBottleIdentifyResultThread, InsertDataThread
+    # ServoThread
 
 """
    主窗口
@@ -145,9 +146,9 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         self.insertData = InsertDataThread()
         self.insertData.start()
 
-        # 舵机启动线程
-        self.servo = ServoThread()
-        self.servo.start()
+        # # 舵机启动线程
+        # self.servo = ServoThread()
+        # self.servo.start()
 
         # 按键响应
         self.back_main_but.clicked.connect(self.backMainWindow)
@@ -158,7 +159,7 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
         self.showMainWindow.show()
 
-    # 视频现成响应槽
+    # 视频响应槽
     def setIdentifySpecies(self):
         self.identifyResult.start()
         self.identifyResult.identifyStart = True
@@ -185,7 +186,7 @@ class ConvertWindow(QWidget, Ui_convertWindow):
             self.insertData.price = bottlePrice
             self.insertData.openId = self.setOpenId
 
-            self.servo.startServo = True
+            # self.servo.startServo = True
             self.insertData.insertDataSin = True
 
 
