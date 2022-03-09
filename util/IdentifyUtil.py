@@ -21,16 +21,25 @@ class IdentifyUtil:
         self.bottleName = []
         self.bottlePrice = {}
 
-        self.mysql = DBUtilClass()
+        try:
+            self.dbLink = DBUtilClass()
+        except Exception as ex:
+            try:
+                self.dbLink = DBUtilClass()
+            except Exception as ex:
+                print("IdentifyUtil -> DBUtilClass :", ex)
         self.kindList = None
         self.findKind()
 
     def findKind(self):
-        self.kindList = self.mysql.select_all("select * from bottleInformation")
-        for i in self.kindList:
-            self.bottleLabel.append(i["bottleLabel"])
-            self.bottleName.append(i["bottleName"])
-            self.bottlePrice.update({i["bottleLabel"]: i["bottlePrice"]})
+        try:
+            self.kindList = self.dbLink.select_all("select * from bottleInformation")
+            for i in self.kindList:
+                self.bottleLabel.append(i["bottleLabel"])
+                self.bottleName.append(i["bottleName"])
+                self.bottlePrice.update({i["bottleLabel"]: i["bottlePrice"]})
+        except Exception as ex:
+            print("IdentifyUtil -> findKind :", ex)
 
     # 请求、处理数据
     def resultAnalysis(self):
