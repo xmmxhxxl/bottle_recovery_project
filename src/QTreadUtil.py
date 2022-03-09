@@ -19,8 +19,7 @@ from paho.mqtt import client as mqtt_client
 
 from DBUtil import DBUtilClass
 from IdentifyUtil import IdentifyUtil
-
-# from ServoUtil import Servo
+from ServoUtil import Servo
 
 """
     MQTT线程,MQTT服务器的订阅、收发数据
@@ -59,8 +58,6 @@ class MQTTThread(QThread):
                 if msg.topic == 'user/userInfo':
                     self.user_sin.emit(data['openId'], data['nickName'], data['avatarUrl'])
                     print(data)
-                else:
-                    self.switch_sin.emit(data['msg'])
 
         client.subscribe(topic)
         client.on_message = on_message
@@ -188,7 +185,7 @@ class BottleIdentifyThread(QThread):
 
     # 线程主体
     def run(self):
-        self.cap = cv.VideoCapture(0, cv.CAP_DSHOW)
+        self.cap = cv.VideoCapture(0)
         self.cue.setText("启动成功,请将瓶子放至识别区!")
         while True:
             if self.playVideo:
@@ -223,7 +220,7 @@ class BottleIdentifyThread(QThread):
                         cv.rectangle(self.image, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
                     # 显示画面
-                    showImage = QImage(self.image, self.image.shape[1], self.image.shape[0], QImage.Format_BGR888)
+                    showImage = QImage(self.image, self.image.shape[1], self.image.shape[0], QImage.Format_RGB888)
                     self.playLabel.setPixmap(QPixmap.fromImage(showImage))
 
                     if self.frameNumber % (self.frame * self.times) == 0:
@@ -252,8 +249,8 @@ class BottleIdentifyThread(QThread):
                             print("start identifying")
                             self.identifySin.emit()
                             self.frequency = 0
-
-            self.cap.release()
+            if self.playVideo is False:
+                self.cap.release()
 
 
 """
@@ -331,10 +328,12 @@ class ServoThread(QThread):
         super(ServoThread, self).__init__(parent)
 
         self.startServo = False
+        self.servo = Servo()
 
     def run(self):
-        while self.startServo:
-            servo = Servo()
-            servo.startServo()
-            self.startServo = False
+        while True:
+            if self.startServo:
+                print("servo")
+                self.servo.startServo()
+                self.startServo = False
             time.sleep(0.5)
