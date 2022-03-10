@@ -20,7 +20,8 @@ from paho.mqtt import client as mqtt_client
 
 from DBUtil import DBUtilClass
 from IdentifyUtil import IdentifyUtil
-from ServoUtil import Servo
+
+# from ServoUtil import Servo
 
 """
     MQTT线程,MQTT服务器的订阅、收发数据
@@ -39,6 +40,8 @@ class MQTTThread(QThread):
         self.client_id = f'python-mqtt-{random.randint(0, 1000)}'
         self.receiverData = True
         self.subscribeTopic = subscribeTopic
+        self.client = self.connect_mqtt()
+        self.publish(self.client, "user/status", 'out')
 
     def connect_mqtt(self) -> mqtt_client:
         try:
@@ -61,6 +64,7 @@ class MQTTThread(QThread):
                 data = json.loads(msg.payload.decode())
                 if self.receiverData:
                     if msg.topic == 'user/userInfo':
+                        self.publish(self.client, "user/status", "login")
                         self.user_sin.emit(data['openId'], data['nickName'], data['avatarUrl'])
                         print(data)
 
@@ -69,13 +73,22 @@ class MQTTThread(QThread):
         except Exception as ex:
             print("MQTTThread -> subscribe :", ex)
 
+    def publish(self, client, topic, msg):
+        msg = {'userLoginStatus': f'{msg}'}
+        print(str(msg))
+        result = client.publish(topic, str(msg))
+        status = result[0]
+        if status == 0:
+            print(f"Send `{msg}` to topic `{topic}`")
+        else:
+            print(f"Failed to send message to topic {topic}")
+
     # socket.gaierror
     def run(self):
         try:
             if self.subscribeTopic:
-                client = self.connect_mqtt()
-                self.subscribe(client, "user/userInfo")
-                client.loop_forever()
+                self.subscribe(self.client, "user/userInfo")
+                self.client.loop_forever()
             else:
                 time.sleep(0.5)
         except socket.gaierror and Exception as ex:

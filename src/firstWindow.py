@@ -16,7 +16,8 @@ from userWindow import Ui_userWindow
 from kindWindow import Ui_kindWindow
 
 from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, \
-    GetBottleIdentifyResultThread, InsertDataThread, ServoThread
+    GetBottleIdentifyResultThread, InsertDataThread\
+    # , ServoThread
 
 """
    主窗口
@@ -168,8 +169,8 @@ class ConvertWindow(QWidget, Ui_convertWindow):
             self.insertData.start()
 
             # 舵机启动线程
-            self.servo = ServoThread()
-            self.servo.start()
+            # self.servo = ServoThread()
+            # self.servo.start()
 
             # 按键响应
             self.back_main_but.clicked.connect(self.backMainWindow)
@@ -226,7 +227,7 @@ class ConvertWindow(QWidget, Ui_convertWindow):
 '''
             rows = self.resultTableWidget.rowCount()
             for item in range(0, rows):
-                price = self.resultTableWidget.item(item, 0).text()
+                price = self.resultTableWidget.item(item, 0).test()
                 totalPrice += eval(price)
 
             self.resultTableWidget.insertRow(rows)
