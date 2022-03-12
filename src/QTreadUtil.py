@@ -21,7 +21,7 @@ from paho.mqtt import client as mqtt_client
 from DBUtil import DBUtilClass
 from IdentifyUtil import IdentifyUtil
 
-# from ServoUtil import Servo
+from ServoUtil import Servo
 
 """
     MQTT线程,MQTT服务器的订阅、收发数据
@@ -40,8 +40,7 @@ class MQTTThread(QThread):
         self.client_id = f'python-mqtt-{random.randint(0, 1000)}'
         self.receiverData = True
         self.subscribeTopic = subscribeTopic
-        self.client = self.connect_mqtt()
-        self.publish(self.client, "user/status", 'out')
+
 
     def connect_mqtt(self) -> mqtt_client:
         try:
@@ -74,7 +73,7 @@ class MQTTThread(QThread):
             print("MQTTThread -> subscribe :", ex)
 
     def publish(self, client, topic, msg):
-        msg = {'userLoginStatus': f'{msg}'}
+        msg = {'userLoginStatus': msg}
         print(str(msg))
         result = client.publish(topic, str(msg))
         status = result[0]
@@ -86,7 +85,9 @@ class MQTTThread(QThread):
     # socket.gaierror
     def run(self):
         try:
+            self.client = self.connect_mqtt()
             if self.subscribeTopic:
+                self.publish(self.client, "user/status", 'out')
                 self.subscribe(self.client, "user/userInfo")
                 self.client.loop_forever()
             else:

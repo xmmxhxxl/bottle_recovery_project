@@ -15,9 +15,7 @@ from mainWindow import Ui_mainWindow
 from userWindow import Ui_userWindow
 from kindWindow import Ui_kindWindow
 
-from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, \
-    GetBottleIdentifyResultThread, InsertDataThread\
-    # , ServoThread
+from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, GetBottleIdentifyResultThread, InsertDataThread, ServoThread
 
 """
    主窗口
@@ -169,8 +167,8 @@ class ConvertWindow(QWidget, Ui_convertWindow):
             self.insertData.start()
 
             # 舵机启动线程
-            # self.servo = ServoThread()
-            # self.servo.start()
+            self.servo = ServoThread()
+            self.servo.start()
 
             # 按键响应
             self.back_main_but.clicked.connect(self.backMainWindow)
@@ -343,7 +341,7 @@ class KindWindow(QWidget, Ui_kindWindow):
     # 设置种类信息
     def setBottleData(self, bottleImageUrl, bottleName, bottleLabel, bottlePrice):
         try:
-            self.label.setText("为您查询到以下信息")
+            self.label.setText("以下为支持回收的瓶子信息")
             for item in range(0, len(bottleName)):
                 image = QLabel(self)
                 image.setPixmap(bottleImageUrl[item])
