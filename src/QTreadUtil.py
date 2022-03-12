@@ -41,7 +41,6 @@ class MQTTThread(QThread):
         self.receiverData = True
         self.subscribeTopic = subscribeTopic
 
-
     def connect_mqtt(self) -> mqtt_client:
         try:
             def on_connect(client, userdata, flags, rc):
@@ -395,3 +394,27 @@ class ServoThread(QThread):
                 time.sleep(0.5)
             except Exception as e:
                 print("ServoThread -> init :", e)
+
+
+"""
+自动退出登陆
+"""
+
+
+class AutomaticExitThread(QThread):
+    timeGapSin = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super(AutomaticExitThread, self).__init__(parent)
+
+        self.timeGap = 0
+        self.statisticsTime = False
+
+    def run(self):
+        while self.statisticsTime:
+            time.sleep(1)
+            self.timeGap += 1
+            print(self.timeGap)
+            if self.timeGap == 15:
+                self.timeGapSin.emit()
+                self.timeGap = 0

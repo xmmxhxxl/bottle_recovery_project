@@ -4,6 +4,7 @@
 # @File : firstWindow.py
 # @Software : PyCharm
 import sys
+import time
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QApplication, QDialog, QLabel, QTableWidgetItem, QAbstractItemView, QHeaderView
@@ -15,7 +16,8 @@ from mainWindow import Ui_mainWindow
 from userWindow import Ui_userWindow
 from kindWindow import Ui_kindWindow
 
-from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, GetBottleIdentifyResultThread, InsertDataThread, ServoThread
+from QTreadUtil import MQTTThread, ReqUserInformationThread, BottleFindThread, BottleIdentifyThread, \
+    GetBottleIdentifyResultThread, InsertDataThread, AutomaticExitThread, ServoThread
 
 """
    主窗口
@@ -49,6 +51,12 @@ class FirstWindow(QDialog, Ui_mainWindow):
             self.showKindWindow = None
             self.showUserWindow = None
             self.showScanCodeWindow = None
+
+            self.exitWindow = AutomaticExitThread()
+            self.exitWindow.statisticsTime = True
+            self.exitWindow.timeGapSin.connect(self.user_log_out_clicked)
+            self.exitWindow.start()
+
         except Exception as ex:
             print("FirstWindow -> init :", ex)
 
@@ -58,6 +66,9 @@ class FirstWindow(QDialog, Ui_mainWindow):
             self.hide()
             self.showConvertWindow = ConvertWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showConvertWindow.show()
+
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
         except Exception as ex:
             print("FirstWindow -> account_but_clicked :", ex)
 
@@ -66,6 +77,9 @@ class FirstWindow(QDialog, Ui_mainWindow):
             self.hide()
             self.showKindWindow = KindWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showKindWindow.show()
+
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
         except Exception as ex:
             print("FirstWindow -> identify_but_clicked :", ex)
 
@@ -74,6 +88,9 @@ class FirstWindow(QDialog, Ui_mainWindow):
             self.hide()
             self.showUserWindow = UserWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showUserWindow.show()
+
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
         except Exception as ex:
             print("FirstWindow -> user_but_clicked :", ex)
 
@@ -82,6 +99,8 @@ class FirstWindow(QDialog, Ui_mainWindow):
             self.hide()
             self.showScanCodeWindow = ScanCodeWindow(True)
             self.showScanCodeWindow.show()
+
+            self.exitWindow.statisticsTime = False
         except Exception as ex:
             print("FirstWindow -> user_log_out_clicked :", ex)
 
@@ -172,6 +191,11 @@ class ConvertWindow(QWidget, Ui_convertWindow):
 
             # 按键响应
             self.back_main_but.clicked.connect(self.backMainWindow)
+
+            self.exitWindow = AutomaticExitThread()
+            self.exitWindow.statisticsTime = True
+            self.exitWindow.timeGapSin.connect(self.user_log_out_clicked)
+            self.exitWindow.start()
         except Exception as ex:
             print("ConvertWindow -> init :", ex)
 
@@ -182,6 +206,11 @@ class ConvertWindow(QWidget, Ui_convertWindow):
             self.servo.servo.stopServo()
             self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showMainWindow.show()
+
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
+            if self.exitWindow.timeGap == 5:
+                self.playVideo.playVideo = False
         except Exception as ex:
             print("ConvertWindow -> backMainWindow :", ex)
 
@@ -190,12 +219,20 @@ class ConvertWindow(QWidget, Ui_convertWindow):
         try:
             self.identifyResult.start()
             self.identifyResult.identifyStart = True
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
+            if self.exitWindow.timeGap == 20:
+                self.playVideo.playVideo = False
         except Exception as ex:
             print("ConvertWindow -> setIdentifySpecies :", ex)
 
     # 识别结果响应槽
     def setBottleInformation(self, bottleName, bottleLabel, bottlePrice, bottleSimilarity):
         try:
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
+            if self.exitWindow.timeGap == 20:
+                self.playVideo.playVideo = False
             print(bottleName, bottleLabel, bottlePrice, bottleSimilarity, self.setOpenId)
             row = self.resultTableWidget.rowCount()
             if bottleSimilarity > 50:
@@ -218,8 +255,20 @@ class ConvertWindow(QWidget, Ui_convertWindow):
 
                 self.servo.startServo = True
                 self.insertData.insertDataSin = True
+
         except Exception as ex:
             print("ConvertWindow -> setBottleInformation :", ex)
+
+    def user_log_out_clicked(self):
+        try:
+            self.hide()
+            self.showScanCodeWindow = ScanCodeWindow(True)
+            self.showScanCodeWindow.show()
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
+            self.playVideo.playVideo = False
+        except Exception as ex:
+            print("UserWindow -> user_log_out_clicked :", ex)
 
 
 '''
@@ -254,7 +303,9 @@ class UserWindow(QWidget, Ui_userWindow):
             self.setupUi(self)
             self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
             self.setWindowFlag(QtCore.Qt.WindowStaysOnTopHint)
+
             self.showMainWindow = None
+            self.showScanCodeWindow = None
 
             self.setOpenId = openId
             self.setNickName = nickName
@@ -267,6 +318,12 @@ class UserWindow(QWidget, Ui_userWindow):
             self.reqUserInfoThread.reqUserInfo = True
 
             self.reqUserInfoThread.start()
+
+            self.exitWindow = AutomaticExitThread()
+            self.exitWindow.statisticsTime = True
+            self.exitWindow.timeGapSin.connect(self.user_log_out_clicked)
+            self.exitWindow.start()
+
         except Exception as ex:
             print("UserWindow -> init :", ex)
 
@@ -276,6 +333,8 @@ class UserWindow(QWidget, Ui_userWindow):
             self.hide()
             self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showMainWindow.show()
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
         except Exception as ex:
             print("UserWindow -> backMainWindow :", ex)
 
@@ -290,6 +349,15 @@ class UserWindow(QWidget, Ui_userWindow):
             self.user_reward_number.setText("0")
         except Exception as ex:
             print("UserWindow -> setUserInformation :", ex)
+
+    def user_log_out_clicked(self):
+        try:
+            self.hide()
+            self.showScanCodeWindow = ScanCodeWindow(True)
+            self.showScanCodeWindow.show()
+            self.exitWindow.statisticsTime = False
+        except Exception as ex:
+            print("UserWindow -> user_log_out_clicked :", ex)
 
 
 """
@@ -313,6 +381,7 @@ class KindWindow(QWidget, Ui_kindWindow):
             self.kind_infortion_table.horizontalHeader().setVisible(False)
             self.kind_infortion_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
             self.showMainWindow = None
+            self.showScanCodeWindow = None
 
             # 设置用户参数
             self.setOpenId = openId
@@ -326,6 +395,11 @@ class KindWindow(QWidget, Ui_kindWindow):
             self.findBottleInformation.start()
 
             self.kind_back_but.clicked.connect(self.backMainWindow)
+
+            self.exitWindow = AutomaticExitThread()
+            self.exitWindow.statisticsTime = True
+            self.exitWindow.timeGapSin.connect(self.user_log_out_clicked)
+            self.exitWindow.start()
         except Exception as ex:
             print("KindWindow -> init :", ex)
 
@@ -335,6 +409,8 @@ class KindWindow(QWidget, Ui_kindWindow):
             self.hide()
             self.showMainWindow = FirstWindow(self.setOpenId, self.setNickName, self.setAvatarUrl)
             self.showMainWindow.show()
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
         except Exception as ex:
             print("KindWindow -> backMainWindow :", ex)
 
@@ -371,6 +447,16 @@ class KindWindow(QWidget, Ui_kindWindow):
                 QApplication.processEvents()
         except Exception as ex:
             print("KindWindow -> setBottleData :", ex)
+
+    def user_log_out_clicked(self):
+        try:
+            self.hide()
+            self.showScanCodeWindow = ScanCodeWindow(True)
+            self.showScanCodeWindow.show()
+            self.exitWindow.statisticsTime = False
+            self.exitWindow.timeGap = 0
+        except Exception as ex:
+            print("UserWindow -> user_log_out_clicked :", ex)
 
 
 if __name__ == '__main__':
